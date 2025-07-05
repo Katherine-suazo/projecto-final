@@ -2,10 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './PokemonFetcher.css'; // Opcional: para estilos básicos
 
 
-// Evaluacion: agregar un buscador de Pokemon, ej: frio, mostrara pokemon de tipo hielo
-// Ej: fuego, mostrara pokemon de tipo fuego
-
-
 // Componente para obtener y mostrat Pokemon aleatorios
 const PokemonFetcher = () => {
   const [pokemones, setPokemones] = useState([]);
@@ -13,10 +9,13 @@ const PokemonFetcher = () => {
   const [error, setError] = useState(null);
 
 
-// Hookk para obtener Pokemon aleatorios  
-useEffect(() => {
+  // Hookk para obtener Pokemon aleatorios  
+  useEffect(() => {
+
     const fetchPokemones = async () => {
+
       try {
+
         setCargando(true);
         setError(null);
         const fetchedPokemones = [];
@@ -37,26 +36,33 @@ useEffect(() => {
           if (!response.ok) {
             throw new Error(`Error al cargar el Pokémon con ID ${id}: ${response.statusText}`);
           }
+
           // Extraer datos del Pokémon
           const data = await response.json();
           fetchedPokemones.push({
-            id: data.id,
+            id: data.id,  
             nombre: data.name,
             imagen: data.sprites.front_default,
             tipos: data.types.map(typeInfo => typeInfo.type.name),
           });
+
         }
 
         // Actualizar el estado con los Pokémon obtenidos
         setPokemones(fetchedPokemones);
-      } catch (err) {
+
+      } 
+      catch (err) {
         setError(err.message);
-      } finally {
+      } 
+      finally {
         setCargando(false);
       }
+
     };
 
     fetchPokemones();
+
   }, []); // El array vacío asegura que se ejecute solo una vez al montar el componente
 
 
@@ -69,10 +75,11 @@ useEffect(() => {
 
 
   return (
-    
-    <div className='pokemon-container'> 
+
+    <div className='pokemon-container'>
       <h2>Tus 4 Pokémon Aleatorios</h2>
-      <div className="pokemon-list"> 
+
+      <div className="pokemon-list">
         {pokemones.map(pokemon => (
           <div key={pokemon.id} className="pokemon-card">
             <h3>{pokemon.nombre.charAt(0).toUpperCase() + pokemon.nombre.slice(1)}</h3>
@@ -83,6 +90,7 @@ useEffect(() => {
           </div>
         ))}
       </div>
+      
     </div>
 
 
