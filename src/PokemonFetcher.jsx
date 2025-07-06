@@ -93,6 +93,8 @@ const PokemonFetcher = () => {
       
     </div>
 
+    
+
 
   );
 };

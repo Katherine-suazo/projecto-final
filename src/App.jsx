@@ -7,9 +7,9 @@ function App() {
   return (
     <>
 
-      <PokemonSearch />
       <h1>Conoce tus Pokémon</h1>
       <PokemonFetcher />
+      <PokemonSearch />
 
     </>
   );
